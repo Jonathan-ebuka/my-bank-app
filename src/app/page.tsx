@@ -17,20 +17,16 @@ import {
 const STORY =
   "Good furniture outlasts fashion. It gathers the marks of a life well lived and looks better for every one of them.";
 
-/**
- * Where the collage photos sit in each category section, by photo index.
- * Heights are a share of the screen height so the photos stay in the bands
- * above and below the title and never run underneath it.
- */
+/** Where the collage tiles sit around each category title, by tile index. */
 const collage = [
-  { box: "left-4 top-[3%] h-[36svh] md:left-[6vw]", drift: 20 },
-  { box: "bottom-[2%] right-4 h-[40svh] md:right-[7vw]", drift: 32 },
-  { box: "hidden md:block md:bottom-[5%] md:left-[30vw] md:h-[24svh]", drift: 44 },
+  { box: "left-4 top-[7%] w-[38vw] md:left-[5vw] md:top-[10%] md:w-[21vw]", drift: 50 },
+  { box: "bottom-[6%] right-4 w-[42vw] md:right-[6vw] md:bottom-[9%] md:w-[25vw]", drift: 110 },
+  { box: "hidden md:block md:left-[23vw] md:bottom-[5%] md:w-[14vw]", drift: 170 },
 ];
 const collageMirrored = [
-  { box: "right-4 top-[3%] h-[36svh] md:right-[6vw]", drift: 20 },
-  { box: "bottom-[2%] left-4 h-[40svh] md:left-[7vw]", drift: 32 },
-  { box: "hidden md:block md:bottom-[5%] md:right-[30vw] md:h-[24svh]", drift: 44 },
+  { box: "right-4 top-[7%] w-[38vw] md:right-[5vw] md:top-[10%] md:w-[21vw]", drift: 50 },
+  { box: "bottom-[6%] left-4 w-[42vw] md:left-[6vw] md:bottom-[9%] md:w-[25vw]", drift: 110 },
+  { box: "hidden md:block md:right-[23vw] md:bottom-[5%] md:w-[14vw]", drift: 170 },
 ];
 
 export default function HomePage() {
@@ -197,17 +193,17 @@ export default function HomePage() {
           return (
             <section
               key={category.slug}
-              className="relative grid min-h-[130svh] place-items-center"
+              className="relative grid min-h-[105svh] place-items-center"
             >
               {pieces.map((piece, slot) => (
                 <div key={piece.slug} className={`absolute ${slots[slot].box}`}>
-                  <div data-parallax={slots[slot].drift} className="h-full">
-                    <div data-clip className="h-full">
+                  <div data-parallax={slots[slot].drift}>
+                    <div data-clip>
                       <Photo
                         src={piece.images[0]}
                         alt=""
-                        sizes="(min-width: 768px) 32svh, 30svh"
-                        className="aspect-[4/5] h-full"
+                        sizes="(min-width: 768px) 25vw, 42vw"
+                        className="aspect-[4/5] w-full"
                       />
                     </div>
                   </div>
