@@ -1,49 +1,114 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
+import { categories } from "@/lib/products";
 
-const links = [
+const menuLinks = [
+  { href: "/", label: "Home" },
   { href: "/shop", label: "Shop all" },
-  { href: "/shop/living-room", label: "Living room" },
-  { href: "/shop/bedroom", label: "Bedroom" },
-  { href: "/shop/dining", label: "Dining" },
+  ...categories.map((category) => ({
+    href: `/shop/${category.slug}`,
+    label: category.name,
+  })),
+  { href: "/cart", label: "Cart" },
 ];
 
 export function Header() {
   const { count } = useCart();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-cream/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-4 sm:px-6">
-        <Link href="/" className="font-display text-2xl font-semibold tracking-tight">
-          Hearth<span className="text-clay">&amp;</span>Oak
-        </Link>
-        <nav aria-label="Main" className="hidden gap-7 text-sm md:flex">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href} className="text-muted hover:text-ink">
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-4 text-sm">
-          <Link href="/shop" className="text-muted hover:text-ink md:hidden">
-            Shop
+    <>
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bone text-ink">
+        <div className="label grid h-12 grid-cols-3 items-center px-4">
+          <Link href="/" onClick={() => setOpen(false)} className="justify-self-start">
+            Hearth&amp;Oak
           </Link>
-          <Link
-            href="/cart"
-            className="inline-flex items-center gap-2 rounded-full border border-ink px-4 py-1.5 font-medium hover:bg-ink hover:text-cream"
+          <button
+            type="button"
+            aria-expanded={open}
+            aria-controls="site-menu"
+            onClick={() => setOpen((value) => !value)}
+            className="label flex items-center gap-2 justify-self-center"
           >
-            Cart
-            <span
-              aria-label={`${count} items in cart`}
-              className="grid h-5 min-w-5 place-items-center rounded-full bg-clay px-1 text-xs text-white"
-            >
-              {count}
+            <span aria-hidden="true" className="relative block h-2 w-6">
+              <span
+                className={`absolute inset-x-0 top-0 h-px bg-current transition-transform duration-300 ${open ? "translate-y-1 rotate-45" : ""}`}
+              />
+              <span
+                className={`absolute inset-x-0 bottom-0 h-px bg-current transition-transform duration-300 ${open ? "-translate-y-[3px] -rotate-45" : ""}`}
+              />
             </span>
-          </Link>
+            {open ? "Close" : "Menu"}
+          </button>
+          <div className="flex items-center gap-6 justify-self-end">
+            <Link
+              href="/shop"
+              onClick={() => setOpen(false)}
+              className="hidden hover:opacity-60 sm:block"
+            >
+              Shop
+            </Link>
+            <Link
+              href="/cart"
+              onClick={() => setOpen(false)}
+              aria-label={`Cart, ${count} items`}
+              className="hover:opacity-60"
+            >
+              Cart ({count})
+            </Link>
+          </div>
         </div>
+      </header>
+
+      <div
+        id="site-menu"
+        inert={!open}
+        className={`fixed inset-0 z-30 flex flex-col justify-between overflow-y-auto bg-bone px-4 pb-6 pt-20 transition-[clip-path,visibility] duration-500 ease-[cubic-bezier(0.7,0,0.2,1)] ${
+          open
+            ? "visible [clip-path:inset(0)]"
+            : "invisible [clip-path:inset(0_0_100%_0)]"
+        }`}
+      >
+        <nav aria-label="Main">
+          <ul>
+            {menuLinks.map((link, index) => (
+              <li key={link.href} className="border-b border-line">
+                <Link
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="group flex items-baseline gap-4 py-2 sm:py-3"
+                >
+                  <span className="label w-6 text-muted">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="display text-[clamp(2rem,6.5vh,4.5rem)] transition-transform duration-300 group-hover:translate-x-3">
+                    {link.label}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p className="label mt-8 text-muted">
+          Free delivery over $500 · 30-day returns · 5-year guarantee
+        </p>
       </div>
-    </header>
+    </>
   );
 }

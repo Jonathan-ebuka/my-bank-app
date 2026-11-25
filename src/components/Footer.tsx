@@ -1,25 +1,25 @@
 import Link from "next/link";
 import { categories } from "@/lib/products";
+import { Wordmark } from "./Wordmark";
 
 export function Footer() {
   return (
-    <footer className="mt-24 border-t border-line bg-sand/50">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-3 sm:px-6">
+    <footer className="mt-32 bg-ink text-bone">
+      <div className="grid gap-10 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
+        <p className="display max-w-xs text-3xl lg:col-span-2">
+          Furniture made to be lived with.
+        </p>
         <div>
-          <p className="font-display text-xl font-semibold">
-            Hearth<span className="text-clay">&amp;</span>Oak
-          </p>
-          <p className="mt-3 max-w-xs text-sm text-muted">
-            Considered furniture in honest materials, made to be lived with for
-            a long time.
-          </p>
-        </div>
-        <div>
-          <p className="text-sm font-semibold">Shop</p>
-          <ul className="mt-3 space-y-2 text-sm text-muted">
+          <p className="label text-bone/50">Shop</p>
+          <ul className="label mt-4 space-y-2">
+            <li>
+              <Link href="/shop" className="hover:opacity-60">
+                All pieces
+              </Link>
+            </li>
             {categories.map((category) => (
               <li key={category.slug}>
-                <Link href={`/shop/${category.slug}`} className="hover:text-ink">
+                <Link href={`/shop/${category.slug}`} className="hover:opacity-60">
                   {category.name}
                 </Link>
               </li>
@@ -27,13 +27,16 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-sm font-semibold">Good to know</p>
-          <ul className="mt-3 space-y-2 text-sm text-muted">
-            <li>Free delivery on orders over $500</li>
+          <p className="label text-bone/50">Good to know</p>
+          <ul className="label mt-4 space-y-2">
+            <li>Free delivery over $500</li>
             <li>30-day returns</li>
             <li>5-year frame guarantee</li>
           </ul>
         </div>
+      </div>
+      <div className="border-t border-line-light pt-4">
+        <Wordmark />
       </div>
     </footer>
   );

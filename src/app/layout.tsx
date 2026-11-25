@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist } from "next/font/google";
+import { Hanken_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const grotesk = Hanken_Grotesk({
+  variable: "--font-grotesk",
   subsets: ["latin"],
 });
 
@@ -25,13 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${grotesk.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pt-12">{children}</main>
         <Footer />
       </body>
     </html>

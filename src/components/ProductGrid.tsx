@@ -13,22 +13,26 @@ const sorters: Record<SortKey, (a: Product, b: Product) => number> = {
   name: (a, b) => a.name.localeCompare(b.name),
 };
 
-export function ProductGrid({ products }: { products: Product[] }) {
+export function ProductGrid({
+  products,
+  filters,
+}: {
+  products: Product[];
+  filters?: React.ReactNode;
+}) {
   const [sort, setSort] = useState<SortKey>("featured");
   const sorted = [...products].sort(sorters[sort]);
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-4 border-b border-line pb-4 text-sm">
-        <p className="text-muted">
-          {products.length} {products.length === 1 ? "piece" : "pieces"}
-        </p>
-        <label className="flex items-center gap-2">
-          <span className="text-muted">Sort by</span>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        {filters}
+        <label className="label flex items-center gap-2 rounded-full border border-line py-1.5 pl-4 pr-2">
+          <span className="text-muted">Sort</span>
           <select
             value={sort}
             onChange={(event) => setSort(event.target.value as SortKey)}
-            className="rounded-full border border-line bg-cream px-3 py-1.5"
+            className="label bg-transparent pr-1 outline-offset-4"
           >
             <option value="featured">Featured</option>
             <option value="price-asc">Price: low to high</option>
@@ -37,7 +41,7 @@ export function ProductGrid({ products }: { products: Product[] }) {
           </select>
         </label>
       </div>
-      <div className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-2 gap-x-2 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
         {sorted.map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}

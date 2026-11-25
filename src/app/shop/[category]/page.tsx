@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CategoryNav } from "@/components/CategoryNav";
+import { PageTitle } from "@/components/PageTitle";
 import { ProductGrid } from "@/components/ProductGrid";
 import { categories, getCategory, getProductsByCategory } from "@/lib/products";
 
@@ -22,16 +23,17 @@ export default async function CategoryPage({
   const { category: slug } = await params;
   const category = getCategory(slug);
   if (!category) notFound();
+  const items = getProductsByCategory(category.slug);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-      <h1 className="font-display text-4xl font-semibold">{category.name}</h1>
-      <p className="mt-2 text-muted">{category.blurb}</p>
-      <div className="mt-6">
-        <CategoryNav active={category.slug} />
-      </div>
-      <div className="mt-6">
-        <ProductGrid products={getProductsByCategory(category.slug)} />
+    <div className="px-4 pt-10">
+      <PageTitle count={items.length}>{category.name}</PageTitle>
+      <p className="mt-4 max-w-sm text-lg text-muted">{category.blurb}</p>
+      <div className="mt-8">
+        <ProductGrid
+          products={items}
+          filters={<CategoryNav active={category.slug} />}
+        />
       </div>
     </div>
   );

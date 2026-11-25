@@ -1,19 +1,28 @@
 import Link from "next/link";
-import { categories, type CategorySlug } from "@/lib/products";
+import {
+  categories,
+  getProductsByCategory,
+  products,
+  type CategorySlug,
+} from "@/lib/products";
 
-const base = "rounded-full border px-4 py-1.5 text-sm whitespace-nowrap";
-const idle = "border-line text-muted hover:border-ink hover:text-ink";
-const selected = "border-ink bg-ink text-cream";
+const base =
+  "label rounded-full border px-4 py-1.5 whitespace-nowrap transition-colors";
+const idle = "border-line hover:border-ink";
+const selected = "border-ink bg-ink text-bone";
 
 export function CategoryNav({ active }: { active?: CategorySlug }) {
   return (
-    <nav aria-label="Categories" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+    <nav
+      aria-label="Categories"
+      className="no-scrollbar -mx-4 flex gap-1.5 overflow-x-auto px-4"
+    >
       <Link
         href="/shop"
         aria-current={active ? undefined : "page"}
         className={`${base} ${active ? idle : selected}`}
       >
-        All
+        All ({products.length})
       </Link>
       {categories.map((category) => (
         <Link
@@ -22,7 +31,7 @@ export function CategoryNav({ active }: { active?: CategorySlug }) {
           aria-current={active === category.slug ? "page" : undefined}
           className={`${base} ${active === category.slug ? selected : idle}`}
         >
-          {category.name}
+          {category.name} ({getProductsByCategory(category.slug).length})
         </Link>
       ))}
     </nav>

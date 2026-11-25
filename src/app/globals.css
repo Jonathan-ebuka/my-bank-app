@@ -1,24 +1,102 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-cream: #f8f4ec;
-  --color-sand: #e9dfcf;
-  --color-line: #d9cdb9;
-  --color-ink: #2a241f;
-  --color-muted: #6b6055;
-  --color-clay: #b4532a;
-  --color-clay-dark: #96421f;
-  --color-sage: #6f7f63;
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-fraunces);
+  --color-bone: #f3f0e8;
+  --color-tile: #e8e2d6;
+  --color-ink: #23261f;
+  --color-muted: #6c6a5f;
+  --color-line: rgb(35 38 31 / 0.16);
+  --color-line-light: rgb(243 240 232 / 0.2);
+  --font-sans: var(--font-grotesk);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--color-cream);
+  background: var(--color-bone);
   color: var(--color-ink);
+  letter-spacing: -0.02em;
 }
 
 button:not(:disabled),
 select {
   cursor: pointer;
+}
+
+/* Large, light, tightly tracked uppercase headings. */
+.display {
+  text-transform: uppercase;
+  font-weight: 300;
+  letter-spacing: -0.055em;
+  line-height: 0.92;
+}
+
+/* Small uppercase interface text. */
+.label {
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Edge-to-edge wordmark sized to the viewport width. */
+.wordmark {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16.4vw;
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  overflow: hidden;
+  padding: 0.14em 1vw 0.04em;
+  white-space: nowrap;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wordmark-rise > span {
+    display: inline-block;
+    animation: rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: calc(var(--i) * 55ms);
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(105%);
+    }
+  }
+
+  .fade-up {
+    animation: fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both;
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+  }
+
+  @media (scripting: enabled) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(2rem);
+      transition:
+        opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
 }

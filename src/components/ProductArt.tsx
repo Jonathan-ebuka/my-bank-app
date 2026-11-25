@@ -137,7 +137,7 @@ export function ProductArt({ kind, tint, accent, className }: ProductArtProps) {
     <svg
       viewBox="0 0 240 160"
       aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio="xMidYMid meet"
       className={className}
       style={{ backgroundColor: tint }}
     >
