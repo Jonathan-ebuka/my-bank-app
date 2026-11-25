@@ -1,4 +1,4 @@
-# Hearth & Oak — furniture store
+# Slyko Living — furniture store
 
 A furniture storefront built with Next.js (App Router), TypeScript and Tailwind CSS,
 with GSAP ScrollTrigger and Lenis for scroll-driven motion.

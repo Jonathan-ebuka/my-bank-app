@@ -1,3 +1,6 @@
+/** The store's name, shown in the header, footer, hero and page titles. */
+export const STORE_NAME = "Slyko Living";
+
 /** The store's currency. Change it here to reprice the whole site's display. */
 export const CURRENCY = "NGN";
 

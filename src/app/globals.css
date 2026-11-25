@@ -43,7 +43,7 @@ select {
   .wordmark {
     display: flex;
     justify-content: space-between;
-    font-size: 15.9vw;
+    font-size: 16.2vw;
     font-weight: 500;
     line-height: 0.8;
     letter-spacing: -0.05em;
@@ -57,7 +57,7 @@ select {
   }
   /* One of two stacked rows on phones. */
   .wordmark-row {
-    font-size: 26vw;
+    font-size: 32vw;
     padding: 0.1em 3vw 0;
   }
 }

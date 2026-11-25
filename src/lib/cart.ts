@@ -13,7 +13,7 @@ export interface CartItem {
   quantity: number;
 }
 
-const STORAGE_KEY = "furniture-store-cart";
+const STORAGE_KEY = "slyko-living-cart";
 const EMPTY: CartLine[] = [];
 
 let lines: CartLine[] = EMPTY;

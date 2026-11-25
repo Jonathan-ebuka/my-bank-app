@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Motion } from "@/components/Motion";
+import { STORE_NAME } from "@/lib/format";
 import "./globals.css";
 
 const grotesk = Hanken_Grotesk({
@@ -13,8 +14,8 @@ const grotesk = Hanken_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "Hearth & Oak — Furniture made to be lived with",
-    template: "%s — Hearth & Oak",
+    default: `${STORE_NAME} — Furniture made to be lived with`,
+    template: `%s — ${STORE_NAME}`,
   },
   description:
     "Coffee tables, shelves, nightstands, credenzas and cabinets made to be lived with.",

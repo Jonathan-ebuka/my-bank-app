@@ -5,7 +5,7 @@ import { Arrow, PillLink } from "@/components/Pill";
 import { Photo } from "@/components/Photo";
 import { ProductCard } from "@/components/ProductCard";
 import { Wordmark } from "@/components/Wordmark";
-import { formatPrice } from "@/lib/format";
+import { formatPrice, STORE_NAME } from "@/lib/format";
 import {
   categories,
   getFeaturedProducts,
@@ -146,7 +146,7 @@ export default function HomePage() {
         </div>
         <div data-reveal-group className="md:col-span-6 md:col-start-7">
           <p data-reveal-item className="display text-[clamp(1.75rem,3.3vw,3.25rem)] leading-[1.04]">
-            Welcome to Hearth &amp; Oak, where furniture is designed slowly,
+            Welcome to {STORE_NAME}, where furniture is designed slowly,
             built properly and priced fairly.
           </p>
           <p data-reveal-item className="mt-8 max-w-sm text-muted">

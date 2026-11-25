@@ -1,3 +1,7 @@
+import { STORE_NAME } from "@/lib/format";
+
+const [FIRST, SECOND] = STORE_NAME.split(" ");
+
 function Letters({ text }: { text: string }) {
   return text.split("").map((letter, index) => (
     <span key={index} data-letter aria-hidden="true">
@@ -21,17 +25,19 @@ export function Wordmark({
   className?: string;
 } & React.HTMLAttributes<HTMLElement>) {
   return (
-    <Tag aria-label="Hearth & Oak" className={className} {...rest}>
+    <Tag aria-label={STORE_NAME} className={className} {...rest}>
       <span className={`wordmark ${stacked ? "hidden sm:flex" : ""}`}>
-        <Letters text="Hearth&Oak" />
+        <Letters text={FIRST} />
+        <span aria-hidden="true" className="w-[0.3em]" />
+        <Letters text={SECOND} />
       </span>
       {stacked && (
         <>
           <span className="wordmark wordmark-row sm:hidden">
-            <Letters text="Hearth" />
+            <Letters text={FIRST} />
           </span>
-          <span className="wordmark wordmark-row justify-start sm:hidden">
-            <Letters text="&Oak" />
+          <span className="wordmark wordmark-row sm:hidden">
+            <Letters text={SECOND} />
           </span>
         </>
       )}

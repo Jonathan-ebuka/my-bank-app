@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
-import { FREE_DELIVERY_LABEL } from "@/lib/format";
+import { FREE_DELIVERY_LABEL, STORE_NAME } from "@/lib/format";
 import { categories } from "@/lib/products";
 
 const menuLinks = [
@@ -38,7 +38,7 @@ export function Header() {
       <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bone/80 text-ink backdrop-blur-md">
         <div className="label grid h-12 grid-cols-3 items-center px-4">
           <Link href="/" onClick={() => setOpen(false)} className="flex h-12 items-center justify-self-start">
-            Hearth&amp;Oak
+            {STORE_NAME}
           </Link>
           <button
             type="button"
