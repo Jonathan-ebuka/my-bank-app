@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FREE_DELIVERY_LABEL } from "@/lib/format";
 import { categories } from "@/lib/products";
 import { Wordmark } from "./Wordmark";
 
@@ -31,7 +32,7 @@ export function Footer() {
           <div>
             <p className="label text-bone/60">Good to know</p>
             <ul className="label mt-4 space-y-2">
-              <li>Free delivery over $500</li>
+              <li>{FREE_DELIVERY_LABEL}</li>
               <li>30-day returns</li>
               <li>5-year frame guarantee</li>
             </ul>

@@ -29,7 +29,7 @@ export interface Product {
   slug: string;
   name: string;
   category: CategorySlug;
-  /** Price in whole US dollars. */
+  /** Price in whole Nigerian naira. */
   price: number;
   description: string;
   material: string;
@@ -91,7 +91,7 @@ export const products: Product[] = [
     slug: "alba-three-seater-sofa",
     name: "Alba Three-Seater Sofa",
     category: "living-room",
-    price: 1290,
+    price: 1_935_000,
     description:
       "A deep, low sofa with feather-wrapped cushions and a solid oak frame. Generous enough for the whole family, refined enough for the front room.",
     material: "Oak frame, woven linen blend",
@@ -105,7 +105,7 @@ export const products: Product[] = [
     slug: "nora-lounge-armchair",
     name: "Nora Lounge Armchair",
     category: "living-room",
-    price: 540,
+    price: 810_000,
     description:
       "A compact armchair with a curved back that holds you just right. Pairs well with a reading lamp and a quiet afternoon.",
     material: "Ash legs, bouclé upholstery",
@@ -120,7 +120,7 @@ export const products: Product[] = [
     slug: "pebble-coffee-table",
     name: "Pebble Coffee Table",
     category: "living-room",
-    price: 320,
+    price: 480_000,
     description:
       "A softly rounded coffee table in solid walnut, finished with hard-wax oil so the grain keeps its depth.",
     material: "Solid walnut",
@@ -133,7 +133,7 @@ export const products: Product[] = [
     slug: "linden-bookshelf",
     name: "Linden Bookshelf",
     category: "living-room",
-    price: 460,
+    price: 690_000,
     description:
       "Five open shelves in a slim frame. Tall enough for a library, light enough not to crowd the room.",
     material: "Oak veneer, steel fixings",
@@ -146,7 +146,7 @@ export const products: Product[] = [
     slug: "haven-platform-bed",
     name: "Haven Platform Bed",
     category: "bedroom",
-    price: 980,
+    price: 1_470_000,
     description:
       "A low platform bed with an upholstered headboard and slatted base. No box spring needed.",
     material: "Solid oak, wool-blend headboard",
@@ -160,7 +160,7 @@ export const products: Product[] = [
     slug: "juno-nightstand",
     name: "Juno Nightstand",
     category: "bedroom",
-    price: 210,
+    price: 315_000,
     description:
       "Two soft-close drawers and a top just big enough for a book, a glass and a lamp.",
     material: "Solid ash",
@@ -174,7 +174,7 @@ export const products: Product[] = [
     slug: "marlow-dining-table",
     name: "Marlow Dining Table",
     category: "dining",
-    price: 1150,
+    price: 1_725_000,
     description:
       "A six-seat dining table with a thick solid top and tapered legs. Built to take decades of dinners.",
     material: "Solid oak",
@@ -188,7 +188,7 @@ export const products: Product[] = [
     slug: "wren-dining-chair",
     name: "Wren Dining Chair",
     category: "dining",
-    price: 185,
+    price: 280_000,
     description:
       "A light, stackable chair with a shaped seat and curved backrest. Comfortable long after dessert.",
     material: "Beech, natural lacquer",
@@ -201,7 +201,7 @@ export const products: Product[] = [
     slug: "atlas-writing-desk",
     name: "Atlas Writing Desk",
     category: "office",
-    price: 620,
+    price: 930_000,
     description:
       "A clean-lined desk with two slim drawers and a hidden cable channel along the back edge.",
     material: "Walnut veneer, powder-coated steel",
@@ -215,7 +215,7 @@ export const products: Product[] = [
     slug: "fern-task-chair",
     name: "Fern Task Chair",
     category: "office",
-    price: 275,
+    price: 415_000,
     description:
       "A supportive everyday chair with a moulded seat that looks at home outside the office too.",
     material: "Moulded plywood, wool seat pad",
@@ -228,7 +228,7 @@ export const products: Product[] = [
     slug: "sol-floor-lamp",
     name: "Sol Floor Lamp",
     category: "lighting",
-    price: 240,
+    price: 360_000,
     description:
       "A slender floor lamp with a linen shade that throws a warm, even glow. Dimmable foot switch included.",
     material: "Brass-finished steel, linen shade",
@@ -242,7 +242,7 @@ export const products: Product[] = [
     slug: "ember-table-lamp",
     name: "Ember Table Lamp",
     category: "lighting",
-    price: 120,
+    price: 180_000,
     description:
       "A small ceramic lamp for bedside tables and bookshelves, glazed by hand in a deep terracotta.",
     material: "Glazed ceramic, cotton shade",

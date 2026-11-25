@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import { clearCart, removeFromCart, setQuantity, useCart } from "@/lib/cart";
-import { formatPrice } from "@/lib/format";
+import { DELIVERY_FEE, FREE_DELIVERY_FROM, formatPrice } from "@/lib/format";
 import { PageTitle } from "./PageTitle";
 import { PillLink } from "./Pill";
 import { ProductArt } from "./ProductArt";
-
-const FREE_DELIVERY_FROM = 500;
-const DELIVERY_FEE = 49;
 
 export function CartView() {
   const { items, count, subtotal } = useCart();
