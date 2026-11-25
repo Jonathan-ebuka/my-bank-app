@@ -46,7 +46,7 @@ export function PillLink({
     <Link href={href} className={`${pillShell} ${tones[tone].shell}`}>
       {children}
       <span className={`${pillBadge} ${tones[tone].badge}`}>
-        <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:-rotate-45" />
+        <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </span>
     </Link>
   );

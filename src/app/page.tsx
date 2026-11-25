@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { DragScroller } from "@/components/DragScroller";
+import { HeroScene } from "@/components/HeroScene";
+import { NewsletterForm } from "@/components/NewsletterForm";
 import { Arrow, PillLink } from "@/components/Pill";
 import { ProductArt } from "@/components/ProductArt";
 import { ProductCard } from "@/components/ProductCard";
-import { Reveal } from "@/components/Reveal";
 import { Wordmark } from "@/components/Wordmark";
 import { formatPrice } from "@/lib/format";
 import {
@@ -14,111 +15,144 @@ import {
   products,
 } from "@/lib/products";
 
-const promises = [
-  {
-    title: "Honest materials",
-    text: "Solid timber, natural fabrics and finishes that age well.",
-  },
-  {
-    title: "Free delivery over $500",
-    text: "Brought into the room of your choice, packaging taken away.",
-  },
-  {
-    title: "5-year guarantee",
-    text: "Every frame and joint is covered for five years.",
-  },
+const STORY =
+  "Good furniture outlasts fashion. It gathers the marks of a life well lived and looks better for every one of them.";
+
+/** Where the collage tiles sit around each category title, by tile index. */
+const collage = [
+  { box: "left-4 top-[7%] w-[38vw] md:left-[5vw] md:top-[10%] md:w-[21vw]", drift: 50 },
+  { box: "bottom-[6%] right-4 w-[42vw] md:right-[6vw] md:bottom-[9%] md:w-[25vw]", drift: 110 },
+  { box: "hidden md:block md:left-[23vw] md:bottom-[5%] md:w-[14vw]", drift: 170 },
+];
+const collageMirrored = [
+  { box: "right-4 top-[7%] w-[38vw] md:right-[5vw] md:top-[10%] md:w-[21vw]", drift: 50 },
+  { box: "bottom-[6%] left-4 w-[42vw] md:left-[6vw] md:bottom-[9%] md:w-[25vw]", drift: 110 },
+  { box: "hidden md:block md:right-[23vw] md:bottom-[5%] md:w-[14vw]", drift: 170 },
 ];
 
 export default function HomePage() {
-  const spotlight = getProduct("nora-lounge-armchair") ?? products[0];
+  const spotlight = getProduct("linden-bookshelf") ?? products[0];
   const featured = getFeaturedProducts();
+  const latest = [...products]
+    .sort((a, b) => Number(b.isNew ?? false) - Number(a.isNew ?? false))
+    .slice(0, 4);
 
   return (
     <>
-      <section className="bg-ink pb-24 text-bone">
-        <Wordmark as="h1" animate />
+      {/* Hero: a tall section whose stage stays pinned while the sequence plays. */}
+      <section data-hero className="relative h-[340vh] bg-ink text-bone">
+        <div
+          data-hero-stage
+          className="sticky top-12 h-[calc(100svh-3rem)] overflow-hidden"
+        >
+          <div data-hero-bg className="absolute inset-0 origin-bottom">
+            <HeroScene className="h-full w-full" />
+          </div>
 
-        <div className="fade-up grid gap-12 px-4 pt-12 md:grid-cols-12 md:px-[6vw]">
-          <div className="md:col-span-4">
-            <p className="max-w-[22rem] uppercase leading-snug">
-              Sofas, tables and beds in solid timber and natural fabrics — made
-              to look better with every year at home.
-            </p>
-            <div className="mt-6">
-              <PillLink href="/shop" tone="light">
-                Explore collection
-              </PillLink>
+          <div data-hero-scrim className="absolute inset-0 bg-ink" />
+
+          <Wordmark as="h1" data-hero-word className="absolute inset-x-0 top-0 origin-top" />
+
+          <div data-hero-intro className="absolute bottom-10 left-4 md:left-[6vw]">
+            <div data-hero-intro-inner>
+              <p className="max-w-[22rem] uppercase leading-snug">
+                Bring warmth and character home with furniture made to be
+                lived with for years.
+              </p>
+              <div className="mt-6">
+                <PillLink href="/shop" tone="light">
+                  Explore collection
+                </PillLink>
+              </div>
             </div>
           </div>
-          <h2 className="display text-[clamp(2.25rem,5.2vw,5rem)] md:col-span-8 md:text-right">
-            Quiet pieces for
-            <br />
-            rooms that are
-            <br />
-            really lived in
-          </h2>
-        </div>
 
-        <Reveal className="mx-auto mt-24 w-[min(26rem,calc(100%-2rem))]">
-          <Link href={`/products/${spotlight.slug}`} className="group block bg-bone text-ink">
+          <div
+            data-hero-statement
+            className="pointer-events-none absolute inset-0 grid place-items-center px-4 text-center"
+          >
+            <h2 className="display text-[clamp(2.5rem,7vw,7rem)]">
+              Made slowly.
+              <br />
+              Kept for a
+              <br />
+              lifetime.
+            </h2>
+          </div>
+
+          <Link
+            href={`/products/${spotlight.slug}`}
+            data-hero-tile
+            className="group absolute left-1/2 top-[7%] block w-[min(40svh,72vw)] -translate-x-1/2 bg-bone text-ink"
+          >
             <div className="overflow-hidden">
               <ProductArt
                 kind={spotlight.art}
-                tint="#f3f0e8"
+                tint="#f4f0ea"
                 accent={spotlight.accent}
                 className="aspect-square w-full transition-transform duration-700 ease-out group-hover:scale-[1.06]"
               />
             </div>
-            <div className="flex items-end justify-between gap-4 border-t border-line p-4">
-              <div>
-                <p className="label text-muted">Piece of the week</p>
-                <p className="label mt-1">{spotlight.name}</p>
-              </div>
-              <p className="text-3xl font-light tracking-[-0.05em] tabular-nums">
-                {formatPrice(spotlight.price)}
-              </p>
+            <div className="label flex items-center justify-between gap-4 border-t border-line px-4 py-3">
+              <span>{spotlight.name}</span>
+              <span className="tabular-nums">{formatPrice(spotlight.price)}</span>
             </div>
           </Link>
-        </Reveal>
+
+          <p
+            data-hero-caption
+            className="display pointer-events-none absolute inset-x-0 bottom-[5%] text-center text-[clamp(2.5rem,9vw,9rem)]"
+          >
+            Piece of the week
+          </p>
+        </div>
       </section>
 
-      <section className="grid gap-10 px-4 py-28 md:grid-cols-12 md:px-[6vw]">
-        <Reveal className="md:col-span-4">
-          <ProductArt
-            kind="lamp"
-            tint="#e8e2d6"
-            accent="#c08a2b"
-            className="aspect-[4/5] w-full max-w-sm"
-          />
-        </Reveal>
-        <Reveal className="md:col-span-7 md:col-start-6">
-          <p className="display text-[clamp(1.75rem,3.4vw,3.25rem)] leading-[1.02]">
-            Welcome to Hearth &amp; Oak — furniture designed slowly, built
-            properly and priced fairly.
+      {/* Welcome */}
+      <section className="grid items-center gap-16 px-4 py-32 md:grid-cols-12 md:px-[6vw] md:py-48">
+        <div className="relative md:col-span-5">
+          <div data-parallax="40" className="w-[72%]">
+            <div data-clip>
+              <ProductArt kind="armchair" tint="#e9e2d6" accent="#6f7f63" className="aspect-[4/5] w-full" />
+            </div>
+          </div>
+          <div data-parallax="120" className="absolute -bottom-[12%] right-0 w-[44%]">
+            <div data-clip>
+              <ProductArt kind="nightstand" tint="#ddd3c3" accent="#a9793f" className="aspect-square w-full" />
+            </div>
+          </div>
+        </div>
+        <div data-reveal-group className="md:col-span-6 md:col-start-7">
+          <p data-reveal-item className="display text-[clamp(1.75rem,3.3vw,3.25rem)] leading-[1.04]">
+            Welcome to Hearth &amp; Oak, where furniture is designed slowly,
+            built properly and priced fairly.
           </p>
-          <p className="mt-8 max-w-sm text-muted">
+          <p data-reveal-item className="mt-8 max-w-sm text-muted">
             Every piece in the collection is made from materials we would want
             in our own homes, by workshops we know by name.
           </p>
-          <div className="mt-8">
-            <PillLink href="/shop">Shop all {products.length} pieces</PillLink>
+          <div data-reveal-item className="mt-8">
+            <PillLink href="#story">Our story</PillLink>
           </div>
-        </Reveal>
+        </div>
       </section>
 
+      {/* Featured */}
       <section>
-        <div className="flex items-end justify-between gap-4 px-4">
-          <h2 className="display text-[clamp(2rem,4.4vw,4rem)]">
-            Featured pieces
-          </h2>
+        <div data-reveal className="flex items-end justify-between gap-4 px-4">
+          <h2 className="display text-[clamp(2rem,4.4vw,4rem)]">Featured pieces</h2>
           <p className="label flex items-center gap-2 text-muted">
             Drag <Arrow className="h-4 w-4" />
           </p>
         </div>
-        <div className="mt-6">
+        <div data-reveal-group className="mt-6">
           <DragScroller>
             {featured.map((product) => (
-              <div key={product.slug} className="w-[70vw] shrink-0 sm:w-[38vw] lg:w-[27vw]">
+              <div
+                key={product.slug}
+                data-reveal-item
+                className="w-[70vw] shrink-0 sm:w-[38vw] lg:w-[27vw]"
+              >
                 <ProductCard product={product} />
               </div>
             ))}
@@ -126,50 +160,90 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 pt-32">
-        <p className="label text-muted">Shop by room</p>
-        <ul className="mt-4 border-t border-line">
-          {categories.map((category, index) => (
-            <li key={category.slug} className="border-b border-line">
-              <Link
-                href={`/shop/${category.slug}`}
-                className="group relative flex items-center gap-4 py-3 sm:py-4"
-              >
-                <span className="label w-8 self-start pt-2 text-muted">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="display flex-1 text-[clamp(2.5rem,9vw,8.5rem)] transition-transform duration-500 ease-out group-hover:translate-x-[2vw]">
+      {/* Categories: one full-height collage each */}
+      <div className="pt-24">
+        {categories.map((category, index) => {
+          const slots = index % 2 === 0 ? collage : collageMirrored;
+          const pieces = getProductsByCategory(category.slug).slice(0, slots.length);
+          return (
+            <section
+              key={category.slug}
+              className="relative grid min-h-[105svh] place-items-center"
+            >
+              {pieces.map((piece, slot) => (
+                <div key={piece.slug} className={`absolute ${slots[slot].box}`}>
+                  <div data-parallax={slots[slot].drift}>
+                    <div data-clip>
+                      <ProductArt
+                        kind={piece.art}
+                        tint={piece.tint}
+                        accent={piece.accent}
+                        className="aspect-[4/5] w-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div data-reveal-group className="relative z-10 px-4 text-center">
+                <p data-reveal-item className="label text-muted">
+                  {String(index + 1).padStart(2, "0")} / {String(categories.length).padStart(2, "0")}
+                </p>
+                <h2 data-reveal-item className="display mt-3 text-[clamp(3rem,13vw,13rem)]">
                   {category.name}
-                </span>
-                <ProductArt
-                  kind={category.art}
-                  tint={category.tint}
-                  accent={category.accent}
-                  className="pointer-events-none absolute right-[18vw] top-1/2 z-10 hidden h-44 w-56 -translate-y-1/2 rotate-3 scale-90 opacity-0 transition duration-500 ease-out group-hover:scale-100 group-hover:opacity-100 lg:block"
-                />
-                <span className="label hidden text-muted sm:block">
-                  {getProductsByCategory(category.slug).length} pieces
-                </span>
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-ink transition-colors duration-300 group-hover:bg-ink group-hover:text-bone">
-                  <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:-rotate-45" />
-                </span>
-              </Link>
-            </li>
+                </h2>
+                <div data-reveal-item className="mt-6">
+                  <PillLink href={`/shop/${category.slug}`}>
+                    Shop {category.name}
+                  </PillLink>
+                </div>
+              </div>
+            </section>
+          );
+        })}
+      </div>
+
+      {/* Story */}
+      <section id="story" className="scroll-mt-12 px-4 py-40 md:px-[10vw] md:py-56">
+        <p className="label text-muted">Our story</p>
+        <p data-words className="display mt-6 text-[clamp(2rem,5.6vw,5.5rem)] leading-[1]">
+          {STORY.split(" ").map((word, index) => (
+            <span key={index} data-word>
+              {word}{" "}
+            </span>
           ))}
-        </ul>
+        </p>
       </section>
 
-      <section className="grid px-4 pt-32 md:grid-cols-3">
-        {promises.map((promise, index) => (
-          <Reveal
-            key={promise.title}
-            className="border-t border-line py-6 md:border-l md:border-t-0 md:px-6 md:first:border-l-0 md:first:pl-0"
-          >
-            <p className="label text-muted">{String(index + 1).padStart(2, "0")}</p>
-            <h3 className="display mt-10 text-3xl">{promise.title}</h3>
-            <p className="mt-3 max-w-xs text-muted">{promise.text}</p>
-          </Reveal>
-        ))}
+      {/* Latest arrivals */}
+      <section className="px-4">
+        <div data-reveal className="flex items-end justify-between gap-4">
+          <h2 className="display text-[clamp(2rem,4.4vw,4rem)]">Latest arrivals</h2>
+          <Link href="/shop" className="label underline underline-offset-4 hover:opacity-60">
+            View all
+          </Link>
+        </div>
+        <div data-reveal-group className="mt-6 grid grid-cols-2 gap-x-2 gap-y-10 lg:grid-cols-4">
+          {latest.map((product) => (
+            <div key={product.slug} data-reveal-item>
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Newsletter */}
+      <section data-reveal-group className="flex flex-col items-center px-4 pt-40 text-center md:pt-56">
+        <h2 data-reveal-item className="display text-[clamp(2.5rem,9vw,9rem)]">
+          Subscribe to our
+          <br />
+          newsletter
+        </h2>
+        <p data-reveal-item className="mt-6 max-w-sm text-muted">
+          New pieces, workshop notes and the occasional early look. No noise.
+        </p>
+        <div data-reveal-item className="mt-10 flex w-full justify-center text-left">
+          <NewsletterForm />
+        </div>
       </section>
     </>
   );

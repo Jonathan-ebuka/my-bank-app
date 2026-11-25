@@ -34,7 +34,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bone text-ink">
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bone/80 text-ink backdrop-blur-md">
         <div className="label grid h-12 grid-cols-3 items-center px-4">
           <Link href="/" onClick={() => setOpen(false)} className="justify-self-start">
             Hearth&amp;Oak
@@ -78,6 +78,7 @@ export function Header() {
 
       <div
         id="site-menu"
+        data-lenis-prevent
         inert={!open}
         className={`fixed inset-0 z-30 flex flex-col justify-between overflow-y-auto bg-bone px-4 pb-6 pt-20 transition-[clip-path,visibility] duration-500 ease-[cubic-bezier(0.7,0,0.2,1)] ${
           open

@@ -43,7 +43,7 @@ export function AddToCart({ slug }: { slug: string }) {
         >
           Add to cart
           <span className={`${pillBadge} ${pillTones.dark.badge}`}>
-            <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:-rotate-45" />
+            <Arrow className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </button>
       </div>

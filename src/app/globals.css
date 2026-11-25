@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bone: #f3f0e8;
-  --color-tile: #e8e2d6;
-  --color-ink: #23261f;
-  --color-muted: #6c6a5f;
-  --color-line: rgb(35 38 31 / 0.16);
-  --color-line-light: rgb(243 240 232 / 0.2);
+  --color-bone: #f4f0ea;
+  --color-tile: #e9e2d6;
+  --color-ink: #4d3d30;
+  --color-muted: #8a7a6b;
+  --color-ember: #c8672e;
+  --color-line: rgb(77 61 48 / 0.18);
+  --color-line-light: rgb(244 240 234 / 0.25);
   --font-sans: var(--font-grotesk);
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -25,10 +22,10 @@ select {
   cursor: pointer;
 }
 
-/* Large, light, tightly tracked uppercase headings. */
+/* Large, tightly tracked uppercase headings. */
 .display {
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.055em;
   line-height: 0.92;
 }
@@ -45,14 +42,17 @@ select {
 .wordmark {
   display: flex;
   justify-content: space-between;
-  font-size: 16.4vw;
-  font-weight: 300;
+  font-size: 15.9vw;
+  font-weight: 500;
   line-height: 0.8;
   letter-spacing: -0.05em;
   text-transform: uppercase;
   overflow: hidden;
   padding: 0.14em 1vw 0.04em;
   white-space: nowrap;
+}
+.wordmark > span {
+  display: inline-block;
 }
 
 .no-scrollbar {
@@ -62,41 +62,59 @@ select {
   display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .wordmark-rise > span {
-    display: inline-block;
-    animation: rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-    animation-delay: calc(var(--i) * 55ms);
+/* Grain laid over the footer's warm ground. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.1  0 0 0 0 0.05  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/*
+ * Starting states for scroll animation (see components/Motion.tsx). They only
+ * apply when scripts can run, so the page stays readable without JavaScript.
+ */
+@media (scripting: enabled) {
+  [data-hero-statement],
+  [data-hero-caption],
+  [data-hero-scrim] {
+    opacity: 0;
+  }
+  [data-hero-tile] {
+    clip-path: inset(100% 0% 0% 0%);
   }
 
-  @keyframes rise {
-    from {
-      transform: translateY(105%);
-    }
-  }
-
-  .fade-up {
-    animation: fade-up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both;
-  }
-
-  @keyframes fade-up {
-    from {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-reveal],
+    [data-reveal-item],
+    [data-hero-intro-inner] {
       opacity: 0;
-      transform: translateY(1.5rem);
+    }
+    [data-clip] {
+      clip-path: inset(100% 0% 0% 0%);
+    }
+    [data-hero-word] > span {
+      transform: translateY(110%);
+    }
+    [data-hero-word],
+    [data-hero-bg],
+    [data-parallax] {
+      will-change: transform;
     }
   }
+}
 
-  @media (scripting: enabled) {
-    .reveal {
-      opacity: 0;
-      transform: translateY(2rem);
-      transition:
-        opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1),
-        transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .reveal.is-visible {
-      opacity: 1;
-      transform: none;
-    }
+/* Without scripts the pinned hero cannot play, so stack its layers instead. */
+@media (scripting: none) {
+  [data-hero] {
+    height: auto !important;
+  }
+  [data-hero-stage] {
+    position: relative !important;
+    height: auto !important;
+    padding-bottom: 4rem;
+  }
+  [data-hero-stage] > :not([data-hero-bg], [data-hero-scrim]) {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    margin: 3rem auto 0;
   }
 }

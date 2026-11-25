@@ -1,23 +1,18 @@
 const LETTERS = "Hearth&Oak".split("");
 
+/** Edge-to-edge store name; each letter is its own span so it can animate. */
 export function Wordmark({
   as: Tag = "p",
-  animate = false,
+  className = "",
+  ...rest
 }: {
   as?: "h1" | "p";
-  animate?: boolean;
-}) {
+  className?: string;
+} & React.HTMLAttributes<HTMLElement>) {
   return (
-    <Tag
-      aria-label="Hearth & Oak"
-      className={`wordmark ${animate ? "wordmark-rise" : ""}`}
-    >
+    <Tag aria-label="Hearth & Oak" className={`wordmark ${className}`} {...rest}>
       {LETTERS.map((letter, index) => (
-        <span
-          key={index}
-          aria-hidden="true"
-          style={{ "--i": index } as React.CSSProperties}
-        >
+        <span key={index} aria-hidden="true">
           {letter}
         </span>
       ))}

@@ -41,9 +41,14 @@ export function ProductGrid({
           </select>
         </label>
       </div>
-      <div className="mt-8 grid grid-cols-2 gap-x-2 gap-y-10 md:grid-cols-3 xl:grid-cols-4">
+      <div
+        data-reveal-group
+        className="mt-8 grid grid-cols-2 gap-x-2 gap-y-10 md:grid-cols-3 xl:grid-cols-4"
+      >
         {sorted.map((product) => (
-          <ProductCard key={product.slug} product={product} />
+          <div key={product.slug} data-reveal-item>
+            <ProductCard product={product} />
+          </div>
         ))}
       </div>
     </div>

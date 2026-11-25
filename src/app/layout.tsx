@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Hanken_Grotesk } from "next/font/google";
+import { Suspense } from "react";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { Motion } from "@/components/Motion";
 import "./globals.css";
 
 const grotesk = Hanken_Grotesk({
@@ -25,6 +27,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         <main className="flex-1 pt-12">{children}</main>
         <Footer />
+        <Suspense fallback={null}>
+          <Motion />
+        </Suspense>
       </body>
     </html>
   );
