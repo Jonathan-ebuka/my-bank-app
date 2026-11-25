@@ -209,14 +209,23 @@ export default function HomePage() {
                   </div>
                 </div>
               ))}
-              <div data-reveal-group className="relative z-10 px-4 text-center">
-                <p data-reveal-item className="label text-muted">
+              {/*
+                The title is drawn in white with a "difference" blend, so it
+                turns dark over the pale page and light over dark parts of a
+                photo. The wrapper must not create its own layer, or the
+                title would have nothing to blend with.
+              */}
+              <div data-reveal-group className="px-4 text-center">
+                <p data-reveal-item className="label relative z-10 text-muted">
                   {String(index + 1).padStart(2, "0")} / {String(categories.length).padStart(2, "0")}
                 </p>
-                <h2 data-reveal-item className="display mt-3 text-[clamp(3rem,13vw,13rem)]">
+                <h2
+                  data-reveal-item
+                  className="display relative z-10 mt-3 text-[clamp(3rem,13vw,13rem)] text-white mix-blend-difference"
+                >
                   {category.name}
                 </h2>
-                <div data-reveal-item className="mt-6">
+                <div data-reveal-item className="relative z-10 mt-6">
                   <PillLink href={`/shop/${category.slug}`}>
                     Shop {category.name}
                   </PillLink>
