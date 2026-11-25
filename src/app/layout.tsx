@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s — Hearth & Oak",
   },
   description:
-    "Considered furniture for the living room, bedroom, dining room and home office.",
+    "Coffee tables, shelves, nightstands, credenzas and cabinets made to be lived with.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

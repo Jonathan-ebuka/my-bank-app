@@ -21,10 +21,9 @@ Open http://localhost:3000.
 - `src/components/Motion.tsx` — smooth scrolling and all scroll animation, driven by
   `data-*` attributes (`data-reveal`, `data-clip`, `data-parallax`, …) on the markup
 
-Product pictures and the hero backdrop are SVG illustrations (`ProductArt.tsx`,
-`HeroScene.tsx`) standing in until real photography is added. The newsletter form
-is not connected to a mailing service. Checkout is not connected to a
-payment provider yet.
+Product photos live in `public/products`, named `<product-slug>-<n>.jpg`, and are
+listed per product in `src/lib/products.ts`. The newsletter form is not connected
+to a mailing service, and checkout is not connected to a payment provider yet.
 
 ## Scripts
 

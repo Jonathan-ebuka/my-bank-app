@@ -5,7 +5,7 @@ import { clearCart, removeFromCart, setQuantity, useCart } from "@/lib/cart";
 import { DELIVERY_FEE, FREE_DELIVERY_FROM, formatPrice } from "@/lib/format";
 import { PageTitle } from "./PageTitle";
 import { PillLink } from "./Pill";
-import { ProductArt } from "./ProductArt";
+import { Photo } from "./Photo";
 
 export function CartView() {
   const { items, count, subtotal } = useCart();
@@ -32,10 +32,10 @@ export function CartView() {
               {items.map(({ product, quantity }) => (
                 <li key={product.slug} className="flex gap-4 border-b border-line py-4">
                   <Link href={`/products/${product.slug}`} className="shrink-0">
-                    <ProductArt
-                      kind={product.art}
-                      tint={product.tint}
-                      accent={product.accent}
+                    <Photo
+                      src={product.images[0]}
+                      alt={product.name}
+                      sizes="144px"
                       className="h-28 w-28 sm:h-36 sm:w-36"
                     />
                   </Link>

@@ -1,24 +1,31 @@
 import Link from "next/link";
 import { formatPrice } from "@/lib/format";
 import type { Product } from "@/lib/products";
-import { ProductArt } from "./ProductArt";
+import { Photo } from "./Photo";
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  sizes = "(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw",
+}: {
+  product: Product;
+  sizes?: string;
+}) {
   return (
     <Link
       href={`/products/${product.slug}`}
       draggable={false}
       className="group block"
     >
-      <div className="relative overflow-hidden">
-        <ProductArt
-          kind={product.art}
-          tint={product.tint}
-          accent={product.accent}
-          className="aspect-[4/5] w-full transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+      <div className="relative">
+        <Photo
+          src={product.images[0]}
+          alt={product.name}
+          sizes={sizes}
+          className="aspect-[4/5] w-full"
+          imageClassName="transition-transform duration-700 ease-out group-hover:scale-[1.06]"
         />
         {product.isNew && (
-          <span className="label absolute left-3 top-3 rounded-full border border-ink px-2.5 py-0.5">
+          <span className="label absolute left-3 top-3 rounded-full bg-bone px-2.5 py-0.5">
             New
           </span>
         )}

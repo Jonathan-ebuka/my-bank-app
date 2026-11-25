@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { DragScroller } from "@/components/DragScroller";
-import { HeroScene } from "@/components/HeroScene";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { Arrow, PillLink } from "@/components/Pill";
-import { ProductArt } from "@/components/ProductArt";
+import { Photo } from "@/components/Photo";
 import { ProductCard } from "@/components/ProductCard";
 import { Wordmark } from "@/components/Wordmark";
 import { formatPrice } from "@/lib/format";
@@ -31,10 +30,10 @@ const collageMirrored = [
 ];
 
 export default function HomePage() {
-  const spotlight = getProduct("linden-bookshelf") ?? products[0];
+  const spotlight = getProduct("reed-nightstand") ?? products[0];
   const featured = getFeaturedProducts();
-  const latest = [...products]
-    .sort((a, b) => Number(b.isNew ?? false) - Number(a.isNew ?? false))
+  const latest = products
+    .filter((product) => product.isNew)
     .slice(0, 4);
 
   return (
@@ -46,7 +45,21 @@ export default function HomePage() {
           className="sticky top-12 h-[calc(100svh-3rem)] overflow-hidden"
         >
           <div data-hero-bg className="absolute inset-0 origin-bottom">
-            <HeroScene className="h-full w-full" />
+            <Photo
+              src="/products/long-walnut-console-1.jpg"
+              alt=""
+              sizes="100vw"
+              eager
+              className="hidden h-full w-full sm:block"
+            />
+            <Photo
+              src="/products/birch-sideboard-1.jpg"
+              alt=""
+              sizes="100vw"
+              eager
+              className="h-full w-full sm:hidden"
+            />
+            <div className="absolute inset-0 bg-ink/45" />
           </div>
 
           <div data-hero-scrim className="absolute inset-0 bg-ink" />
@@ -85,14 +98,13 @@ export default function HomePage() {
             data-hero-tile
             className="group absolute left-1/2 top-[7%] block w-[min(40svh,72vw)] -translate-x-1/2 bg-bone text-ink"
           >
-            <div className="overflow-hidden">
-              <ProductArt
-                kind={spotlight.art}
-                tint="#f4f0ea"
-                accent={spotlight.accent}
-                className="aspect-square w-full transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-              />
-            </div>
+            <Photo
+              src={spotlight.images[0]}
+              alt={spotlight.name}
+              sizes="(min-width: 640px) 40svh, 72vw"
+              className="aspect-square w-full"
+              imageClassName="transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+            />
             <div className="label flex items-center justify-between gap-4 border-t border-line px-4 py-3">
               <span>{spotlight.name}</span>
               <span className="tabular-nums">{formatPrice(spotlight.price)}</span>
@@ -113,12 +125,22 @@ export default function HomePage() {
         <div className="relative md:col-span-5">
           <div data-parallax="40" className="w-[72%]">
             <div data-clip>
-              <ProductArt kind="armchair" tint="#e9e2d6" accent="#6f7f63" className="aspect-[4/5] w-full" />
+              <Photo
+                src="/products/loop-coffee-table-1.jpg"
+                alt=""
+                sizes="(min-width: 768px) 30vw, 70vw"
+                className="aspect-[4/5] w-full"
+              />
             </div>
           </div>
           <div data-parallax="120" className="absolute -bottom-[12%] right-0 w-[44%]">
             <div data-clip>
-              <ProductArt kind="nightstand" tint="#ddd3c3" accent="#a9793f" className="aspect-square w-full" />
+              <Photo
+                src="/products/cane-side-table-1.jpg"
+                alt=""
+                sizes="(min-width: 768px) 18vw, 44vw"
+                className="aspect-square w-full"
+              />
             </div>
           </div>
         </div>
@@ -153,7 +175,10 @@ export default function HomePage() {
                 data-reveal-item
                 className="w-[70vw] shrink-0 sm:w-[38vw] lg:w-[27vw]"
               >
-                <ProductCard product={product} />
+                <ProductCard
+                  product={product}
+                  sizes="(min-width: 1024px) 27vw, (min-width: 640px) 38vw, 70vw"
+                />
               </div>
             ))}
           </DragScroller>
@@ -174,10 +199,10 @@ export default function HomePage() {
                 <div key={piece.slug} className={`absolute ${slots[slot].box}`}>
                   <div data-parallax={slots[slot].drift}>
                     <div data-clip>
-                      <ProductArt
-                        kind={piece.art}
-                        tint={piece.tint}
-                        accent={piece.accent}
+                      <Photo
+                        src={piece.images[0]}
+                        alt=""
+                        sizes="(min-width: 768px) 25vw, 42vw"
                         className="aspect-[4/5] w-full"
                       />
                     </div>
