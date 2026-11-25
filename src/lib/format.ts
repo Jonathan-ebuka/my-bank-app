@@ -22,3 +22,7 @@ export function formatPrice(amount: number): string {
 }
 
 export const FREE_DELIVERY_LABEL = `Free delivery over ${formatPrice(FREE_DELIVERY_FROM)}`;
+
+/** Service promises shown in the menu and footer. */
+export const RETURNS_LABEL = "7-day returns";
+export const WARRANTY_LABEL = "1-year warranty";

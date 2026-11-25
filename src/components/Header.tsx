@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
-import { FREE_DELIVERY_LABEL, STORE_NAME } from "@/lib/format";
+import {
+  FREE_DELIVERY_LABEL,
+  RETURNS_LABEL,
+  STORE_NAME,
+  WARRANTY_LABEL,
+} from "@/lib/format";
 import { categories } from "@/lib/products";
 
 const menuLinks = [
@@ -108,7 +113,7 @@ export function Header() {
           </ul>
         </nav>
         <p className="label mt-8 text-muted">
-          {FREE_DELIVERY_LABEL} · 30-day returns · 5-year guarantee
+          {FREE_DELIVERY_LABEL} · {RETURNS_LABEL} · {WARRANTY_LABEL}
         </p>
       </div>
     </>

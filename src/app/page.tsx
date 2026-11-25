@@ -46,11 +46,13 @@ export default function HomePage() {
         >
           <div data-hero-bg className="absolute inset-0 origin-bottom">
             <Photo
-              src="/products/long-walnut-console-1.jpg"
+              src="/home/hero.jpg"
               alt=""
               sizes="100vw"
               eager
+              quality={90}
               className="hidden h-full w-full sm:block"
+              imageClassName="object-[50%_64%]"
             />
             <Photo
               src="/products/birch-sideboard-1.jpg"
