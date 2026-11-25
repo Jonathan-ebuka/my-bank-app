@@ -30,6 +30,8 @@ export function Motion() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    // Phone address bars resize the viewport while scrolling; don't re-measure for that.
+    ScrollTrigger.config({ ignoreMobileResize: true });
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const instance = new Lenis({ lerp: 0.085, anchors: true });
@@ -166,7 +168,7 @@ function animateHero(motion: boolean) {
 
   if (motion) {
     gsap.fromTo(
-      find("[data-hero-word] span"),
+      find("[data-hero-word] [data-letter]"),
       { yPercent: 110, y: 0 },
       { yPercent: 0, duration: 1.3, ease: "power3.out", stagger: 0.06, delay: 0.15 },
     );

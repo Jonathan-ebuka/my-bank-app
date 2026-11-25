@@ -51,7 +51,7 @@ export default function HomePage() {
 
           <div data-hero-scrim className="absolute inset-0 bg-ink" />
 
-          <Wordmark as="h1" data-hero-word className="absolute inset-x-0 top-0 origin-top" />
+          <Wordmark as="h1" stacked data-hero-word className="absolute inset-x-0 top-0 origin-top" />
 
           <div data-hero-intro className="absolute bottom-10 left-4 md:left-[6vw]">
             <div data-hero-intro-inner>

@@ -36,7 +36,7 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bone/80 text-ink backdrop-blur-md">
         <div className="label grid h-12 grid-cols-3 items-center px-4">
-          <Link href="/" onClick={() => setOpen(false)} className="justify-self-start">
+          <Link href="/" onClick={() => setOpen(false)} className="flex h-12 items-center justify-self-start">
             Hearth&amp;Oak
           </Link>
           <button
@@ -44,7 +44,7 @@ export function Header() {
             aria-expanded={open}
             aria-controls="site-menu"
             onClick={() => setOpen((value) => !value)}
-            className="label flex items-center gap-2 justify-self-center"
+            className="label flex h-12 items-center gap-2 justify-self-center px-3"
           >
             <span aria-hidden="true" className="relative block h-2 w-6">
               <span
@@ -60,7 +60,7 @@ export function Header() {
             <Link
               href="/shop"
               onClick={() => setOpen(false)}
-              className="hidden hover:opacity-60 sm:block"
+              className="hidden h-12 items-center hover:opacity-60 sm:flex"
             >
               Shop
             </Link>
@@ -68,7 +68,7 @@ export function Header() {
               href="/cart"
               onClick={() => setOpen(false)}
               aria-label={`Cart, ${count} items`}
-              className="hover:opacity-60"
+              className="flex h-12 items-center hover:opacity-60"
             >
               Cart ({count})
             </Link>

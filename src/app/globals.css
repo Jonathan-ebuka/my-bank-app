@@ -22,37 +22,44 @@ select {
   cursor: pointer;
 }
 
-/* Large, tightly tracked uppercase headings. */
-.display {
-  text-transform: uppercase;
-  font-weight: 400;
-  letter-spacing: -0.055em;
-  line-height: 0.92;
-}
+@layer components {
+  /* Large, tightly tracked uppercase headings. */
+  .display {
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: -0.055em;
+    line-height: 0.92;
+  }
 
-/* Small uppercase interface text. */
-.label {
-  text-transform: uppercase;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-}
+  /* Small uppercase interface text. */
+  .label {
+    text-transform: uppercase;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
 
-/* Edge-to-edge wordmark sized to the viewport width. */
-.wordmark {
-  display: flex;
-  justify-content: space-between;
-  font-size: 15.9vw;
-  font-weight: 500;
-  line-height: 0.8;
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  overflow: hidden;
-  padding: 0.14em 1vw 0.04em;
-  white-space: nowrap;
-}
-.wordmark > span {
-  display: inline-block;
+  /* Edge-to-edge wordmark sized to the viewport width. */
+  .wordmark {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15.9vw;
+    font-weight: 500;
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    overflow: hidden;
+    padding: 0.14em 1vw 0.04em;
+    white-space: nowrap;
+  }
+  .wordmark > [data-letter] {
+    display: inline-block;
+  }
+  /* One of two stacked rows on phones. */
+  .wordmark-row {
+    font-size: 26vw;
+    padding: 0.1em 3vw 0;
+  }
 }
 
 .no-scrollbar {
@@ -90,7 +97,7 @@ select {
     [data-clip] {
       clip-path: inset(100% 0% 0% 0%);
     }
-    [data-hero-word] > span {
+    [data-hero-word] [data-letter] {
       transform: translateY(110%);
     }
     [data-hero-word],
