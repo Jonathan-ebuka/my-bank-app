@@ -19,21 +19,6 @@ const STORY =
 
 const MARQUEE = ["Lagos, Nigeria", "Original", "Minimal", "Modern", "Made for Nigerian homes"];
 
-const roots = [
-  {
-    title: "Based in Lagos",
-    text: "Slyko Living is a Nigerian brand, run from Lagos. This city is home, and it shapes everything we choose to make and sell.",
-  },
-  {
-    title: "Original, minimal, modern",
-    text: "We set out to bring something fresh to the Nigerian furniture space: clean lines, honest materials and shapes you won't find in every showroom.",
-  },
-  {
-    title: "Made for Nigerian homes",
-    text: "For full houses, long Sunday afternoons and guests who stay for one more plate. Priced in naira, always.",
-  },
-];
-
 /** Where the collage tiles sit around each category title, by tile index. */
 const collage = [
   { box: "left-4 top-[7%] w-[38vw] md:left-[5vw] md:top-[10%] md:w-[21vw]", drift: 50 },
@@ -270,7 +255,7 @@ export default function HomePage() {
       </div>
 
       {/* Story */}
-      <section id="story" className="scroll-mt-12 px-4 py-40 md:px-[10vw] md:pb-40 md:pt-56">
+      <section id="story" className="scroll-mt-12 px-4 py-40 md:px-[10vw] md:py-56">
         <p className="label text-muted">Our story</p>
         <p data-words className="display mt-6 text-[clamp(2rem,5.6vw,5.5rem)] leading-[1]">
           {STORY.split(" ").map((word, index) => (
@@ -279,26 +264,6 @@ export default function HomePage() {
             </span>
           ))}
         </p>
-      </section>
-
-      {/* Rooted in Lagos */}
-      <section className="px-4 pb-32 md:pb-40">
-        <h2 data-reveal className="display text-[clamp(2rem,4.4vw,4rem)]">
-          Rooted in Lagos
-        </h2>
-        <div className="mt-8 grid md:grid-cols-3">
-          {roots.map((root, index) => (
-            <div
-              key={root.title}
-              data-reveal
-              className="border-t border-line py-6 md:border-l md:border-t-0 md:px-6 md:first:border-l-0 md:first:pl-0"
-            >
-              <p className="label text-muted">{String(index + 1).padStart(2, "0")}</p>
-              <h3 className="display mt-10 text-3xl">{root.title}</h3>
-              <p className="mt-3 max-w-xs text-muted">{root.text}</p>
-            </div>
-          ))}
-        </div>
       </section>
 
       {/* Latest arrivals */}
