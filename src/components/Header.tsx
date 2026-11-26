@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import {
   FREE_DELIVERY_LABEL,
+  LOCATION,
   RETURNS_LABEL,
   STORE_NAME,
   WARRANTY_LABEL,
@@ -113,7 +114,7 @@ export function Header() {
           </ul>
         </nav>
         <p className="label mt-8 text-muted">
-          {FREE_DELIVERY_LABEL} · {RETURNS_LABEL} · {WARRANTY_LABEL}
+{LOCATION} · {FREE_DELIVERY_LABEL} · {RETURNS_LABEL} · {WARRANTY_LABEL}
         </p>
       </div>
     </>

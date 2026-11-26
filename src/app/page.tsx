@@ -5,7 +5,7 @@ import { Arrow, PillLink } from "@/components/Pill";
 import { Photo } from "@/components/Photo";
 import { ProductCard } from "@/components/ProductCard";
 import { Wordmark } from "@/components/Wordmark";
-import { formatPrice, STORE_NAME } from "@/lib/format";
+import { COORDINATES, formatPrice, LOCATION, STORE_NAME } from "@/lib/format";
 import {
   categories,
   getFeaturedProducts,
@@ -15,7 +15,24 @@ import {
 } from "@/lib/products";
 
 const STORY =
-  "Good furniture outlasts fashion. It gathers the marks of a life well lived and looks better for every one of them.";
+  "Nigerian homes deserve furniture with a point of view of its own. So we started in Lagos, with original shapes, nothing extra, and pieces that look better for every year they are lived with.";
+
+const MARQUEE = ["Lagos, Nigeria", "Original", "Minimal", "Modern", "Made for Nigerian homes"];
+
+const roots = [
+  {
+    title: "Based in Lagos",
+    text: "Slyko Living is a Nigerian brand, run from Lagos. This city is home, and it shapes everything we choose to make and sell.",
+  },
+  {
+    title: "Original, minimal, modern",
+    text: "We set out to bring something fresh to the Nigerian furniture space: clean lines, honest materials and shapes you won't find in every showroom.",
+  },
+  {
+    title: "Made for Nigerian homes",
+    text: "For full houses, long Sunday afternoons and guests who stay for one more plate. Priced in naira, always.",
+  },
+];
 
 /** Where the collage tiles sit around each category title, by tile index. */
 const collage = [
@@ -70,9 +87,10 @@ export default function HomePage() {
 
           <div data-hero-intro className="absolute bottom-10 left-4 md:left-[6vw]">
             <div data-hero-intro-inner>
-              <p className="max-w-[22rem] uppercase leading-snug">
-                Bring warmth and character home with furniture made to be
-                lived with for years.
+              <p className="label text-bone/70">{LOCATION} · {COORDINATES}</p>
+              <p className="mt-3 max-w-[22rem] uppercase leading-snug">
+                Original, minimal, modern furniture from Lagos, made for
+                Nigerian homes.
               </p>
               <div className="mt-6">
                 <PillLink href="/shop" tone="light">
@@ -87,11 +105,11 @@ export default function HomePage() {
             className="pointer-events-none absolute inset-0 grid place-items-center px-4 text-center"
           >
             <h2 className="display text-[clamp(2.5rem,7vw,7rem)]">
-              Made slowly.
+              Original.
               <br />
-              Kept for a
+              Minimal.
               <br />
-              lifetime.
+              Proudly Nigerian.
             </h2>
           </div>
 
@@ -122,6 +140,18 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Running band that places the brand */}
+      <div aria-hidden="true" className="overflow-hidden border-b border-line py-4">
+        <div className="marquee label flex w-max gap-10 pr-10">
+          {[...MARQUEE, ...MARQUEE, ...MARQUEE, ...MARQUEE].map((item, index) => (
+            <span key={index} className="flex items-center gap-10">
+              {item}
+              <span className="h-1.5 w-1.5 rounded-full bg-ember" />
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* Welcome */}
       <section className="grid items-center gap-16 px-4 py-32 md:grid-cols-12 md:px-[6vw] md:py-48">
         <div className="relative md:col-span-5">
@@ -148,12 +178,13 @@ export default function HomePage() {
         </div>
         <div data-reveal-group className="md:col-span-6 md:col-start-7">
           <p data-reveal-item className="display text-[clamp(1.75rem,3.3vw,3.25rem)] leading-[1.04]">
-            Welcome to {STORE_NAME}, where furniture is designed slowly,
-            built properly and priced fairly.
+            Welcome to {STORE_NAME}, a Lagos furniture brand bringing
+            original, minimal and modern pieces to Nigerian homes.
           </p>
           <p data-reveal-item className="mt-8 max-w-sm text-muted">
-            Every piece in the collection is made from materials we would want
-            in our own homes, by workshops we know by name.
+            We started with one aim: to bring a new kind of furniture into the
+            Nigerian furniture space. Fewer, better pieces, chosen with care
+            and priced in naira.
           </p>
           <div data-reveal-item className="mt-8">
             <PillLink href="#story">Our story</PillLink>
@@ -239,7 +270,7 @@ export default function HomePage() {
       </div>
 
       {/* Story */}
-      <section id="story" className="scroll-mt-12 px-4 py-40 md:px-[10vw] md:py-56">
+      <section id="story" className="scroll-mt-12 px-4 py-40 md:px-[10vw] md:pb-40 md:pt-56">
         <p className="label text-muted">Our story</p>
         <p data-words className="display mt-6 text-[clamp(2rem,5.6vw,5.5rem)] leading-[1]">
           {STORY.split(" ").map((word, index) => (
@@ -248,6 +279,26 @@ export default function HomePage() {
             </span>
           ))}
         </p>
+      </section>
+
+      {/* Rooted in Lagos */}
+      <section className="px-4 pb-32 md:pb-40">
+        <h2 data-reveal className="display text-[clamp(2rem,4.4vw,4rem)]">
+          Rooted in Lagos
+        </h2>
+        <div className="mt-8 grid md:grid-cols-3">
+          {roots.map((root, index) => (
+            <div
+              key={root.title}
+              data-reveal
+              className="border-t border-line py-6 md:border-l md:border-t-0 md:px-6 md:first:border-l-0 md:first:pl-0"
+            >
+              <p className="label text-muted">{String(index + 1).padStart(2, "0")}</p>
+              <h3 className="display mt-10 text-3xl">{root.title}</h3>
+              <p className="mt-3 max-w-xs text-muted">{root.text}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Latest arrivals */}
@@ -275,7 +326,8 @@ export default function HomePage() {
           newsletter
         </h2>
         <p data-reveal-item className="mt-6 max-w-sm text-muted">
-          New pieces, workshop notes and the occasional early look. No noise.
+          New pieces and the occasional early look, straight from Lagos. No
+          noise.
         </p>
         <div data-reveal-item className="mt-10 flex w-full justify-center text-left">
           <NewsletterForm />

@@ -1,6 +1,10 @@
 /** The store's name, shown in the header, footer, hero and page titles. */
 export const STORE_NAME = "Slyko Living";
 
+/** Where the store is based, and the city's map coordinates. */
+export const LOCATION = "Lagos, Nigeria";
+export const COORDINATES = "6.5244° N, 3.3792° E";
+
 /** The store's currency. Change it here to reprice the whole site's display. */
 export const CURRENCY = "NGN";
 

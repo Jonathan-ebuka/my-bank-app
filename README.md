@@ -1,6 +1,6 @@
 # Slyko Living — furniture store
 
-A furniture storefront built with Next.js (App Router), TypeScript and Tailwind CSS,
+The storefront for Slyko Living, a furniture brand based in Lagos, Nigeria. Built with Next.js (App Router), TypeScript and Tailwind CSS,
 with GSAP ScrollTrigger and Lenis for scroll-driven motion.
 
 ## Getting started

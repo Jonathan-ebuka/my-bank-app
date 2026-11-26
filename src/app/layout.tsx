@@ -14,11 +14,11 @@ const grotesk = Hanken_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: `${STORE_NAME} — Furniture made to be lived with`,
+    default: `${STORE_NAME} — Modern furniture from Lagos, Nigeria`,
     template: `%s — ${STORE_NAME}`,
   },
   description:
-    "Coffee tables, shelves, nightstands, credenzas and cabinets made to be lived with.",
+    "A Lagos furniture brand bringing original, minimal and modern coffee tables, shelves, nightstands, credenzas and cabinets to Nigerian homes.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
