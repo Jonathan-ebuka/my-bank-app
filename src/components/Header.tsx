@@ -43,7 +43,18 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-40 border-b border-line bg-bone/80 text-ink backdrop-blur-md">
         <div className="label grid h-12 grid-cols-3 items-center px-4">
-          <Link href="/" onClick={() => setOpen(false)} className="flex h-12 items-center justify-self-start">
+          {/* The logo does a full reload of the home page so it restarts from the top. */}
+          <Link
+            href="/"
+            onClick={(event) => {
+              event.preventDefault();
+              history.scrollRestoration = "manual";
+              // A deliberate hard reload, not a client-side route change.
+              // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+              window.location.assign("/");
+            }}
+            className="flex h-12 items-center justify-self-start"
+          >
             {STORE_NAME}
           </Link>
           <button

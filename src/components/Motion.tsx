@@ -27,6 +27,13 @@ let lenis: Lenis | null = null;
 export function Motion() {
   const pathname = usePathname();
   const firstRun = useRef(true);
+  const viaHistory = useRef(false);
+
+  useEffect(() => {
+    const onPopState = () => (viaHistory.current = true);
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -48,9 +55,34 @@ export function Motion() {
     };
   }, []);
 
+  // A refresh starts from the top (see the script in app/layout.tsx). Once the
+  // page has settled, let the browser restore scroll again for back/forward.
   useEffect(() => {
+    if (history.scrollRestoration !== "manual") return;
+    window.scrollTo(0, 0);
+    const restore = () =>
+      window.setTimeout(() => (history.scrollRestoration = "auto"), 300);
+    if (document.readyState === "complete") {
+      restore();
+      return;
+    }
+    window.addEventListener("load", restore, { once: true });
+    return () => window.removeEventListener("load", restore);
+  }, []);
+
+  useEffect(() => {
+    const cleanups: Array<() => void> = [];
     if (firstRun.current) {
       firstRun.current = false;
+    } else if (viaHistory.current) {
+      // Back/forward: the browser puts the visitor back where they were, so
+      // only bring the smooth scroller in line with that position.
+      viaHistory.current = false;
+      const sync = window.setTimeout(
+        () => lenis?.scrollTo(window.scrollY, { immediate: true, force: true }),
+        60,
+      );
+      cleanups.push(() => window.clearTimeout(sync));
     } else {
       lenis?.scrollTo(0, { immediate: true, force: true });
     }
@@ -69,7 +101,10 @@ export function Motion() {
     );
 
     document.fonts.ready.then(() => ScrollTrigger.refresh());
-    return () => media.revert();
+    return () => {
+      cleanups.forEach((cleanup) => cleanup());
+      media.revert();
+    };
   }, [pathname]);
 
   return null;
